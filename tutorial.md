@@ -1,43 +1,48 @@
 # Micro:Bit & Phyphox ☀️⚡
+```package
+bluetooth
+```
+## Einführung @unplugged
 
-## Introduction @unplugged
+Lerne wie man den @boardname@ mit Phyphox via Bluetooth verknüpft und die Daten einer Photovoltaikzelle analysiert.
 
-Lerne wie man den Micro:Bit mit Phyphox via Bluetooth verknüpft und die Daten einer Photovoltaikzelle analysiert.
+## Bluetooth aktivieren @fullscreen
 
+Klicke auf (+)  ``||advanced:extension:bluetooth||`` und füge Bluetooth dazu. Dabei musst du die Auswahl bestätigen, da der @boardname@ entweder per 
+Bluetooth statt Radio kommunizieren wird. 
 
-![Heart shape in the LEDs](/static/mb/projects/flashing-heart/sim.gif)
+## Verbindungskontrolle  ✔️
 
-## Step 1 @fullscreen
-
-Füge den Block ``||advanced:extension||`` 
-
-
-
-## Step 2
-
-Place another ``||basic:show leds||`` block. You can leave it blank and draw what you want.
+Um zu Kontrollieren, ob der @boardname@ verbunden ist, fügen wir einen ``||bluetooth:onBluetoothConnected||``
+melden mit einem Bild ``||basic:showIcon||`` das erfolgreiche Verbinden zurück.
 
 ```blocks
-basic.forever(function() {
-    basic.showLeds(`
-        . # . # .
-        # # # # #
-        # # # # #
-        . # # # .
-        . . # . .`);
-    basic.showLeds(`
-        . . . . .
-        . . . . .
-        . . . . .
-        . . . . .
-        . . . . .`);
+bluetooth.onBluetoothConnected(function () {
+    basic.showIcon(IconNames.Yes)
 })
 ```
 
-## Step 3
+## Verbindungskontrolle  ❌
 
 Look at the virtual @boardname@, you should see the heart and your drawing blink on the screen.
+```blocks
+bluetooth.onBluetoothDisconnected(function () {
+    basic.showIcon(IconNames.No)
+})
+```
+## Bluetoothservice starten
 
-## Step 4
+```blocks
+bluetooth.startUartService()
+```
+## Daten senden 
 
-Wenn du den @boardname@ verbunden hast, klicke auf ``|Download|`` um den Code auf deinen @boardname@ zu übertragen!
+```blocks
+basic.forever(function () {
+    bluetooth.uartWriteLine("")
+})
+```
+
+## Installieren auf dem @boardname@
+
+Klicke auf ``||download||``, um dein Programm auf deinen @boardname@ zu übertragen!
